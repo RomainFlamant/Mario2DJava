@@ -38,7 +38,7 @@ public class Mario {
   int animFrame; // keeps track of which animation frame is currently shown for the player
   int coinsCollected; // a counter to keep a tally on how many coins the player has collected
   
-  static final double JUMP_POWER = 7.0; // how hard the player jolts upward on jump
+  static final double JUMP_POWER = 8.0; // how hard the player jolts upward on jump
   static final double RUN_SPEED = 3.0; // force of player movement on ground, in pixels/cycle
   static final double AIR_RUN_SPEED = 1.0; // like run speed, but used for control while in the air
   static final double SLOWDOWN_PERC = 0.6; // friction from the ground. multiplied by the x speed each frame.
