@@ -18,15 +18,13 @@ class Keyboard {
   public Boolean holdingLeft;
   public Boolean holdingSpace;
   private PApplet engine;
-  private PlatformControler p;
   
-  Keyboard(PApplet _engine, PlatformControler p) {
+  Keyboard(PApplet _engine) {
     holdingUp = false;
     holdingRight = false;
     holdingLeft = false;
     holdingSpace = false;
     engine = _engine;
-    this.p = p;
   }
   
   /* The way that Processing, and many programming languages/environments, deals with keys is
@@ -36,11 +34,11 @@ class Keyboard {
    */
 
   void pressKey(int key,int keyCode) {
-    if(key == 'r') { // never will be held down, so no Boolean needed to track it
-      if(p.gameWon()) { // if the game has been won...
-        p.resetGame(); // then R key resets it
-      }
-    }
+    //if(key == 'r') { // never will be held down, so no Boolean needed to track it
+    //  if(p.gameWon()) { // if the game has been won...
+    //    p.resetGame(); // then R key resets it
+    //  }
+    //}
    
     if (keyCode == engine.UP) {
       holdingUp = true;
@@ -55,18 +53,12 @@ class Keyboard {
       holdingSpace = true;
     }
   }
-  void releaseKey(int key,int keyCode) {
-    if (keyCode == engine.UP) {
-      holdingUp = false;
-    }
-    if (keyCode == engine.LEFT) {
-      holdingLeft = false;
-    }
-    if (keyCode == engine.RIGHT) {
-      holdingRight = false;
-    }
-    if (keyCode == ' ') {
-      holdingSpace = false;
-    }
+  void releaseKey() {
+    
+    holdingUp = false;
+    holdingLeft = false;
+    holdingRight = false;
+    holdingSpace = false;
+    
   }
 }

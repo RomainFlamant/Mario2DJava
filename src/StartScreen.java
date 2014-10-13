@@ -26,7 +26,7 @@ public class StartScreen {
     {
         w = new World(engine);
         w.initBasicLevel();
-        m = new Mario(engine,0,520);
+        //m = new Mario(engine,0,520);
         //s = new Sound(engine);
     }
 

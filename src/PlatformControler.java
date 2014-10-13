@@ -39,7 +39,7 @@ public AudioSample sndJump, sndCoin; // AudioSample plays more respnosively. Bet
 // we use this to track how far the camera has scrolled left or right
 float cameraOffsetX;
 
-Keyboard theKeyboard = new Keyboard(engine, this);
+Keyboard theKeyboard = new Keyboard(engine);
 World2 theWorld = new World2(engine);
 Player thePlayer = new Player(engine, theKeyboard,this , theWorld);
 
@@ -164,7 +164,7 @@ void keyPressed() {
 }
 
 void keyReleased() {
-  theKeyboard.releaseKey(engine.key,engine.keyCode);
+  //theKeyboard.releaseKey(engine.key,engine.keyCode);
 }
 
 void stop() { // automatically called when program exits. here we'll stop and unload sounds.
