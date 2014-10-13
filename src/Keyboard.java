@@ -53,12 +53,18 @@ class Keyboard {
       holdingSpace = true;
     }
   }
-  void releaseKey() {
-    
-    holdingUp = false;
-    holdingLeft = false;
-    holdingRight = false;
-    holdingSpace = false;
-    
+  void releaseKey(int keyCode) {
+    if (keyCode == engine.UP) {
+      holdingUp = false;
+    }
+    if (keyCode == engine.LEFT) {
+      holdingLeft = false;
+    }
+    if (keyCode == engine.RIGHT) {
+      holdingRight = false;
+    }
+    if (keyCode == ' ') {
+      holdingSpace = false;
+    }
   }
 }

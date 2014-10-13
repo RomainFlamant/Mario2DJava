@@ -39,8 +39,8 @@ public class Mario {
   int coinsCollected; // a counter to keep a tally on how many coins the player has collected
   
   static final double JUMP_POWER = 7.0; // how hard the player jolts upward on jump
-  static final double RUN_SPEED = 5.0; // force of player movement on ground, in pixels/cycle
-  static final double AIR_RUN_SPEED = 2.0; // like run speed, but used for control while in the air
+  static final double RUN_SPEED = 3.0; // force of player movement on ground, in pixels/cycle
+  static final double AIR_RUN_SPEED = 1.0; // like run speed, but used for control while in the air
   static final double SLOWDOWN_PERC = 0.6; // friction from the ground. multiplied by the x speed each frame.
   static final double AIR_SLOWDOWN_PERC = 0.85; // resistance in the air, otherwise air control enables crazy speeds
   static final int RUN_ANIMATION_DELAY = 3; // how many game cycles pass between animation updates?
@@ -83,13 +83,11 @@ public class Mario {
     float frictionHere = (float) (isOnGround ? SLOWDOWN_PERC : AIR_SLOWDOWN_PERC);
     
     
-    if (engine.keyPressed){
-    if(engine.keyCode == engine.LEFT) {
+    if(keyboard.holdingLeft) {
       velocity.x -= speedHere;
-    } else if(engine.keyCode == engine.RIGHT) {
+    } else if(keyboard.holdingRight) {
       velocity.x += speedHere;
     } 
-    }
     velocity.x *= frictionHere; // causes player to constantly lose speed
     
     if(isOnGround) { // player can only jump if currently on the ground
@@ -167,10 +165,6 @@ public class Mario {
     int guyWidth = MarioStandbye.width;
     int guyHeight = MarioStandbye.height;
     
-    engine.pushMatrix();
-    //engine.image(MarioJump, 0, 0);
-    engine.popMatrix();
-    
     if(velocity.x<-TRIVIAL_SPEED) {
       facingRight = false;
     } else if(velocity.x>TRIVIAL_SPEED) {
@@ -185,7 +179,7 @@ public class Mario {
     engine.translate(-guyWidth/2,-guyHeight); // drawing images centered on character's feet
 
     if(isOnGround==false) { // falling or jumping
-      engine.image(MarioRunLeft2, 0,0); // this running pose looks pretty good while in the air
+      engine.image(MarioJump, 0,0); // this running pose looks pretty good while in the air
     } else if(engine.abs(velocity.x)<TRIVIAL_SPEED) { // not moving fast, i.e. standing
       engine.image(MarioStandbye, 0,0);
     } else { // running. Animate.
@@ -201,7 +195,7 @@ public class Mario {
       if(animFrame==0) {
         engine.image(MarioStandbye, 0,0);
       } else {
-        engine.image(MarioRunLeft2, 0,0);
+        engine.image(MarioRunRight2, 0,0);
       }
     }
     

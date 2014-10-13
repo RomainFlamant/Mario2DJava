@@ -15,8 +15,9 @@ import processing.event.KeyEvent;
 public class Program extends PApplet{
     
     static final int WINDOW_WIDTH = 1000;
-    static final int WINDOW_HEIGHT = 600;
+    static final int WINDOW_HEIGHT = 224;
     static final float GRAVITY = -200; // acceleration due to gravity
+    public float cameraOffsetX;
 
     public void gamevover() {
         size(WINDOW_WIDTH,WINDOW_HEIGHT,P2D);
@@ -45,7 +46,7 @@ public class Program extends PApplet{
         w.initBasicLevel();
         k = new Keyboard(this);
         m = new Mario(this,w,k,this);
-        
+        cameraOffsetX = (float) 0.0;
         //p = new PlatformControler(this);
         //p.setup();
         w.reload(m); 
@@ -54,17 +55,18 @@ public class Program extends PApplet{
     
     public void draw(){
         background(171,205,239);
+        pushMatrix(); // lets us easily undo the upcoming translate call
+        translate(-cameraOffsetX, (float) 0.0); // affects all upcoming graphics calls, until popMatrix
+
+        updateCameraPosition();
+
         w.initBasicLevel();
-        m.draw();
+
         m.inputCheck();
         m.move();
-        
-        //m.reset(); // reset the coins collected number, etc.
-  
-        // reset world map
+        m.draw();
 
-  
-        
+        popMatrix();
     }
     
     @Override
@@ -73,11 +75,27 @@ public class Program extends PApplet{
         k.pressKey(key, keyCode);
     }
     
+    void updateCameraPosition() {
+        int rightEdge = World.GRID_UNITS_WIDE*World.GRID_UNIT_SIZE-width;
+        // the left side of the camera view should never go right of the above number
+        // think of it as "total width of the game world" (World.GRID_UNITS_WIDE*World.GRID_UNIT_SIZE)
+        // minus "width of the screen/window" (width)
+
+        cameraOffsetX = m.position.x-width/2;
+        if(cameraOffsetX < 0) {
+          cameraOffsetX = 0;
+        }
+
+        if(cameraOffsetX > rightEdge) {
+          cameraOffsetX = rightEdge;
+        }
+    }
+    
 
     @Override
     public void keyReleased() {
         super.keyReleased();
-        k.releaseKey();
+        k.releaseKey(this.keyCode);
     }
   
     
