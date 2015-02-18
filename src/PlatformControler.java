@@ -63,7 +63,7 @@ void setup() { // called automatically when the program starts
   
   cameraOffsetX = (float) 0.0;
   
-  minim = new Minim(this);
+  minim = new Minim(engine);
   music = minim.loadFile("Ressource/test/PinballSpring.mp3", 1024);
   music.loop();
   int buffersize = 256;
